@@ -40,25 +40,35 @@ public class OrderWebService {
     }
 
     /**
-     * Web service operation
+     *  returns a string with the
+        information of the order, e.g., ”Order number 2: Customer Peter has ordered
+        10 pencil. Is paid” for an order made with order number 2 by customer Peter
+        who has ordered 10 amount of product ”pencil” and where payment was okay.
+        If the order is not yet paid, then ”Not yet paid” should be returned instead of
+        ”Is paid”
+     * @param orderNumber
+     * @return order status text
      */
     @WebMethod(operationName = "getOrderInfo")
     public String getOrderInfo(@WebParam(name = "orderNumber") String orderNumber) {
         Order order = orders.get(orderNumber);
-        String payStatus = "";
-        if(order.isPaid()) {
-            payStatus = "Is Paid";
-        } else {
-            payStatus = "Not yet paid";
-        }
-        return "Order number " + order.getOrderNumber() + ": Customer " + order.getCustomer() + " has ordered " + order.getAmount() + " " + order.getProduct() + ". " + payStatus;
+        return order.toString();
     }
 
     /**
-     * Web service operation
+     * Initiates payment by taking as argument a credit
+       card number (string), e.g. ”12345”, and an order number (string).
      */
     @WebMethod(operationName = "payOrder")
     @Oneway
     public void payOrder(@WebParam(name = "ccNumber") String ccNumber, @WebParam(name = "orderNumber") String orderNumber) {
+    }
+
+    /**
+     * Returns order object from orders, argument is order number
+     */
+    @WebMethod(operationName = "getOrderObject")
+    public Order getOrderObject(@WebParam(name = "orderNumber") String orderNumber) {        
+        return orders.get(orderNumber);
     }
 }
