@@ -62,6 +62,8 @@ public class OrderWebService {
     @WebMethod(operationName = "payOrder")
     @Oneway
     public void payOrder(@WebParam(name = "ccNumber") String ccNumber, @WebParam(name = "orderNumber") String orderNumber) {
+        //TODO Payment verification!
+        orders.get(orderNumber).setIsPaid(true);
     }
 
     /**
@@ -70,5 +72,13 @@ public class OrderWebService {
     @WebMethod(operationName = "getOrderObject")
     public Order getOrderObject(@WebParam(name = "orderNumber") String orderNumber) {        
         return orders.get(orderNumber);
+    }
+
+    /**
+     * Returns true if order number is paid
+     */
+    @WebMethod(operationName = "isOrderPaid")
+    public boolean isOrderPaid(@WebParam(name = "orderNumber") String orderNumber) {
+        return orders.get(orderNumber).isPaid();
     }
 }
