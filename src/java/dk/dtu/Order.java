@@ -62,6 +62,19 @@ public class Order {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        String payStatus;
+        if(this.isPaid()) {
+            payStatus = "Is Paid";
+        } else {
+            payStatus = "Not yet paid";
+        }
+        return "Order number " + this.getOrderNumber() + ": Customer " + this.getCustomer() + " has ordered " + this.getAmount() + " " + this.getProduct() + ". " + payStatus;
+    }
+    
+    
     
     
 }
